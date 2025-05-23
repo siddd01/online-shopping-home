@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { products } from '../components/product'
+import { AppContext } from '../Context/AppContext'
 
 export const ProductCard = ({ product }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false)
+
+ 
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0])
   const [imageLoaded, setImageLoaded] = useState(false)
+  const{ addToCart,setAddToCard}=useContext(AppContext)
+  const {isWishlisted, setIsWishlisted} = useContext(AppContext)
 
   const discountPercentage = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -194,6 +198,7 @@ export const ProductCard = ({ product }) => {
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             disabled={!product.inStock}
+            onClick={()=>setAddToCard(prev => [...prev, product])}
           >
             {product.inStock ? 'Add to Cart' : 'Out of Stock'}
           </button>
@@ -209,9 +214,15 @@ export const ProductCard = ({ product }) => {
   )
 }
 const AllProducts = () => {
+      const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
   return (
     <div>
-                <div className="mb-6 ">
+                <div className="mt-10">
+                
                   <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">All Products by Review Count</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5   justify-items-center">

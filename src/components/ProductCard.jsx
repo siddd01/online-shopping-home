@@ -1,9 +1,6 @@
-import { useContext, useState } from 'react'
-import { products } from '../components/product'
-import { AppContext } from '../Context/AppContext'
+import { useState } from 'react'
 export const ProductCard = ({ product }) => {
-    const{ addToCart,setAddToCard}=useContext(AppContext)
-  const {isWishlisted, setIsWishlisted} = useContext(AppContext)
+  const [isWishlisted, setIsWishlisted] = useState(false)
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0])
   const [imageLoaded, setImageLoaded] = useState(false)
 
@@ -41,7 +38,7 @@ export const ProductCard = ({ product }) => {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 w-[400px] h-[500px]">
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 w-[400px] h-[400px]">
       {/* Image Container */}
       <div className="relative overflow-hidden">
         {/* Product Badge */}
@@ -194,7 +191,6 @@ export const ProductCard = ({ product }) => {
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             disabled={!product.inStock}
-            onClick={()=>setAddToCard(prev => [...prev, product])}
           >
             {product.inStock ? 'Add to Cart' : 'Out of Stock'}
           </button>
@@ -209,87 +205,3 @@ export const ProductCard = ({ product }) => {
     </div>
   )
 }
-
-const TopSelling = () => {
-
-
-  // Sort products by review count in descending order (highest first)
-  const sortedProducts = [...products].sort((a, b) => b.reviewCount - a.reviewCount)
-
-  return (
-    <div className="bg-gray-50 min-h-screen py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Top Selling Products</h1>
-          <p className="text-lg text-gray-600">Sorted by highest customer reviews</p>
-          <div className="flex justify-center mt-4">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-1 w-24 rounded-full"></div>
-          </div>
-        </div>
-        
-        {/* Top 3 Highlight Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">🏆 Top 3 Most Reviewed</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-            {sortedProducts.slice(0, 3).map((product, index) => (
-              <div key={product.id} className="relative">
-                {/* Ranking badge */}
-                <div className="absolute -top-3 -left-3 z-30 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg shadow-lg">
-                  #{index + 1}
-                </div>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* All Products Grid */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">All Products by Review Count</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center">
-          {sortedProducts.map((product, index) => (
-            <div key={product.id} className="relative">
-              {/* Review count badge */}
-              <div className="absolute -top-2 -right-2 z-30 bg-blue-600 text-white rounded-full px-2 py-1 text-xs font-semibold shadow-md">
-                {product.reviewCount} reviews
-              </div>
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-        
-        {/* Stats Summary */}
-        <div className="mt-12 bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Collection Stats</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="bg-blue-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-blue-600">{sortedProducts.length}</div>
-              <div className="text-sm text-gray-600">Total Products</div>
-            </div>
-            <div className="bg-green-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-green-600">
-                {sortedProducts.reduce((sum, p) => sum + p.reviewCount, 0).toLocaleString()}
-              </div>
-              <div className="text-sm text-gray-600">Total Reviews</div>
-            </div>
-            <div className="bg-yellow-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-yellow-600">
-                {(sortedProducts.reduce((sum, p) => sum + p.rating, 0) / sortedProducts.length).toFixed(1)}★
-              </div>
-              <div className="text-sm text-gray-600">Avg Rating</div>
-            </div>
-            <div className="bg-purple-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-purple-600">
-                {sortedProducts.filter(p => p.inStock).length}
-              </div>
-              <div className="text-sm text-gray-600">In Stock</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default TopSelling

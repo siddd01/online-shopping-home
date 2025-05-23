@@ -4,10 +4,15 @@ export const AppContext = createContext();
 
 export function AppContextProvider(props) {
   const [user, setUser] = useState(true);
+  const [addToCart,setAddToCard]=useState([])
+  const [isWishlisted, setIsWishlisted]=useState([])
+  console.log(addToCart)
+  console.log(isWishlisted)
 
   const value = {
     user,
-    setUser,
+    setUser,addToCart,setAddToCard,
+    isWishlisted, setIsWishlisted
   };
 
   return (

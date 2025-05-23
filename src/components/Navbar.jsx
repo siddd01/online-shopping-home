@@ -14,6 +14,7 @@ const Navbar = () => {
     return (
         <nav className="h-20 bg-white shadow-lg border-b border-gray-200">
             <div className="max-full mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            
                 <div className="flex items-center justify-around h-full">
                     {/* Logo Section */}
                     <div className="flex items-center">
