@@ -33,8 +33,8 @@ const Navbar = () => {
                         <a  onClick={()=>navigate("/TopSelling" )} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
                             Top Selling
                         </a>
-                        <a  onClick={()=>navigate("/Categories" )} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
-                            Categories
+                        <a  onClick={()=>navigate("/AllProducts" )} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+                            AllProducts
                         </a>
                         <a  onClick={()=>navigate("/AboutUs" )} className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
                             About Us
@@ -96,7 +96,7 @@ const Navbar = () => {
                 <div className="px-4 py-3 space-y-3">
                     <p onClick={()=>navigate("/" )} className="block text-gray-700 hover:text-blue-600 font-medium">Home</p>
                     <p  onClick={()=>navigate("/TopSelling" )} className="block text-gray-700 hover:text-blue-600 font-medium">Top Selling</p>
-                    <p onClick={()=>navigate("/Categories" )}  className="block text-gray-700 hover:text-blue-600 font-medium">Categories</p>
+                    <p onClick={()=>navigate("/AllProducts" )}  className="block text-gray-700 hover:text-blue-600 font-medium">AllProducts</p>
                     <p  onClick={()=>navigate("/AboutUs" )} className="block text-gray-700 hover:text-blue-600 font-medium">About Us</p>
                 </div>
             </div>

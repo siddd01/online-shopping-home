@@ -1,23 +1,7 @@
 import { useState } from 'react'
+import { products } from '../components/product'
 
-const ProductCard = ({ 
-  product = {
-    id: 1,
-    name: "Premium Wireless Headphones",
-    brand: "TechSound",
-    price: 199.99,
-    originalPrice: 249.99,
-    rating: 4.5,
-    reviewCount: 128,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
-    badge: "Best Seller",
-    inStock: true,
-    fastDelivery: true,
-    freeShipping: true,
-    colors: ["Black", "White", "Blue"],
-    category: "Electronics"
-  }
-}) => {
+export const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0])
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -46,18 +30,19 @@ const ProductCard = ({
 
   const colorMap = {
     Black: 'bg-gray-900',
-    White: 'bg-white border-2 border-gray-300',
+    White: 'bg-white border border-gray-300',
     Blue: 'bg-blue-600',
     Red: 'bg-red-600',
     Green: 'bg-green-600',
     Pink: 'bg-pink-500',
-    Purple: 'bg-purple-600'
+    Purple: 'bg-purple-600',
+    Brown: 'bg-yellow-800'
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 w-[300px] h-[500px]">
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 w-[400px] h-[500px]">
       {/* Image Container */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden ">
         {/* Product Badge */}
         {product.badge && (
           <div className="absolute top-3 left-3 z-10">
@@ -83,7 +68,7 @@ const ProductCard = ({
           style={{ right: discountPercentage > 0 ? '3.5rem' : '0.75rem' }}
         >
           <svg 
-            className={`w-5 h-5 transition-colors duration-200 ${
+            className={`w-4 h-4 transition-colors duration-200 ${
               isWishlisted ? 'text-red-500 fill-current' : 'text-gray-400'
             }`} 
             fill={isWishlisted ? 'currentColor' : 'none'} 
@@ -98,7 +83,7 @@ const ProductCard = ({
         <div className="relative h-48 bg-gray-100">
           {!imageLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
             </div>
           )}
           <img
@@ -116,7 +101,7 @@ const ProductCard = ({
           
           {/* Quick View Overlay */}
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <button className="bg-white text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
+            <button className="bg-white text-gray-800 px-3 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
               Quick View
             </button>
           </div>
@@ -179,11 +164,12 @@ const ProductCard = ({
           )}
         </div>
 
+
         {/* Stock Status & Shipping Info */}
         <div className="mb-4">
           <div className="flex items-center space-x-4 text-xs">
-            <span className={`flex items-center ${product.inStock ? 'text-green-600' : 'text-red-600'}`}>
-              <span className={`w-2 h-2 rounded-full mr-1 ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`}></span>
+            <span className={`flex  items-center ${product.inStock ? 'text-green-600' : 'text-red-600'}`}>
+              <span className={`w-2 h-2 rounded-full  mr-1 ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`}></span>
               {product.inStock ? 'In Stock' : 'Out of Stock'}
             </span>
             {product.freeShipping && (
@@ -200,10 +186,10 @@ const ProductCard = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex space-x-2">
+                     <div className="flex space-x-2">
           <button 
-            className={`flex-1 py-2.5 px-4 rounded-lg font-medium transition-all duration-200 ${
-              product.inStock 
+            className={`flex-1 py-2.5 px-4 rounded-lg font-medium transition-all  duration-200 ${
+              product.inStock
                 ? 'bg-blue-600 hover:bg-blue-700 text-white' 
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
@@ -222,66 +208,25 @@ const ProductCard = ({
     </div>
   )
 }
-
-// Example usage with multiple products
-const ProductGrid = () => {
-  const sampleProducts = [
-    {
-      id: 1,
-      name: "Premium Wireless Headphones",
-      brand: "TechSound",
-      price: 199.99,
-      originalPrice: 249.99,
-      rating: 4.5,
-      reviewCount: 128,
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
-      badge: "Best Seller",
-      inStock: true,
-      fastDelivery: true,
-      freeShipping: true,
-      colors: ["Black", "White", "Blue"],
-      category: "Electronics"
-    },
-    {
-      id: 2,
-      name: "Stylish Running Shoes",
-      brand: "SportMax",
-      price: 89.99,
-      originalPrice: 120.00,
-      rating: 4.2,
-      reviewCount: 89,
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
-      badge: "New Arrival",
-      inStock: true,
-      fastDelivery: false,
-      freeShipping: true,
-      colors: ["Black", "White", "Red"],
-      category: "Fashion"
-    },
-    {
-      id: 3,
-      name: "Smart Watch Series 5",
-      brand: "TechWear",
-      price: 299.99,
-      rating: 4.8,
-      reviewCount: 256,
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
-      inStock: false,
-      fastDelivery: true,
-      freeShipping: true,
-      colors: ["Black", "White", "Pink"],
-      category: "Electronics"
-    }
-  ]
-
+const AllProducts = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
-      {sampleProducts.map(product => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div>
+                <div className="mb-6 ">
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">All Products by Review Count</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5   justify-items-center">
+                  {products.map((product, index) => (
+                    <div key={product.id} className="relative">
+                      {/* Review count badge */}
+                      <div className="absolute -top-2 -right-2 z-30 bg-blue-600 text-white rounded-full px-2 py-1 text-xs font-semibold shadow-md">
+                        {product.reviewCount} reviews
+                      </div>
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
     </div>
   )
 }
 
-export default ProductCard
-export { ProductGrid }
+export default AllProducts
